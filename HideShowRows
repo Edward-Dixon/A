@@ -1,0 +1,39 @@
+Enter file contents hereOption Explicit
+
+Sub Bevel3_Click()
+ActiveSheet.Protect Password:="xxx", UserInterfaceOnly:=True
+Dim r As Range, c As Range
+
+
+    Set r = Range("A50:A60,A66:A79,A86:A93,A97:A104")
+Application.ScreenUpdating = False
+
+For Each c In r
+    If Len(c.Text) = 0 Then
+        c.EntireRow.Hidden = True
+    Else
+        c.EntireRow.Hidden = False
+    End If
+Next c
+Application.ScreenUpdating = True
+
+End Sub
+
+Sub Bevel4_Click()
+ActiveSheet.Protect Password:="xxx", UserInterfaceOnly:=True
+Dim r As Range, c As Range
+
+  Set r = Range("A50:A60,A66:A79,A86:A93,A97:A104")
+Application.ScreenUpdating = False
+
+For Each c In r
+    If Len(c.Text) = 0 Then
+        c.EntireRow.Hidden = False
+    Else
+        c.EntireRow.Hidden = False
+    End If
+Next c
+Application.ScreenUpdating = True
+
+End Sub
+
