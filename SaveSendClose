@@ -1,0 +1,58 @@
+Sub SaveSendClose()
+'Save Date as static
+ Worksheets("EOS").Unprotect Password:="xxx"
+Range("E3").Value = Date
+Call Bevel3_Click
+'Sub Save to file S drive
+
+
+ YMD = Year(Now()) & "-" & Month(Now()) & "-" & Day(Now())
+ docname = "EOS"
+ Author = Range("A3").Text
+ Shift = Range("D3").Text
+ On Error Resume Next
+ fname1 = "C:\My Documents\" & YMD & "-" & docname & "-" & Author & ".xlsm"""
+ fname = "\Central Processing Dept\End Of Shit Report File\EOS Weekends Archive\" & YMD & "-" & docname & "-" & Author & ".xlsm"
+ On Error Resume Next
+ ActiveWorkbook.SaveAs Filename:=fname, FileFormat:=52
+  On Error Resume Next
+ ActiveWorkbook.SaveAs Filename:=fname1, FileFormat:=52
+ 
+ 'Sub email
+ 
+ ' Works in Excel 2000, Excel 2002, Excel 2003, Excel 2007, Excel 2010, Outlook 2000, Outlook 2002, Outlook 2003, Outlook 2007, Outlook 2010.
+' This example sends the last saved version of the Activeworkbook object .
+
+    Dim OutApp As Object
+    Dim OutMail As Object
+ On Error Resume Next
+    Set OutApp = CreateObject("Outlook.Application")
+    Set OutMail = OutApp.CreateItem(0)
+
+    On Error Resume Next
+   ' Change the mail address and subject in the macro before you run it.
+    With OutMail
+        .CC = ""
+        .BCC = ""
+        .Subject = "EOS Report For " & YMD & " " & Shift
+        .Body = "Automaticaly Generated" & vbNewLine & "Comments" & vbNewLine & Range("A101").Text
+        .Attachments.Add ActiveWorkbook.FullName
+        ' You can add other files by uncommenting the following line.
+        '.Attachments.Add ("C:\test.txt")
+        ' In place of the following statement, you can use ".Display" to
+        ' display the mail.
+        .display
+    End With
+    On Error Resume Next
+
+    Set OutMail = Nothing
+    Set OutApp = Nothing
+    
+  
+'Application.Quit
+
+     
+End Sub
+
+
+
